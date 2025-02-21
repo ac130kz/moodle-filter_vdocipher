@@ -96,12 +96,6 @@ class text_filter extends \vdo_base_filter
             $otp_post_array = [];
             $otp_post_array["ttl"] = 300;
 
-            if (!function_exists("eval_date")) {
-                function eval_date($matches)
-                {
-                    return date($matches[1]);
-                }
-            }
             if (!empty(self::$watermark)) {
                 global $USER;
                 $annotatecode = self::$watermark;
@@ -113,7 +107,9 @@ class text_filter extends \vdo_base_filter
                     $annotatecode = str_replace('{id}', $USER->id, $annotatecode);
                 }
                 $annotatecode = str_replace('{ip}', $_SERVER['REMOTE_ADDR'], $annotatecode);
-                $annotatecode = preg_replace_callback('/\{date\.([^\}]+)\}/', "eval_date", $annotatecode);
+                $annotatecode = preg_replace_callback('/\{date\.([^\}]+)\}/', function ($matches) {
+                    return date($matches[1]);
+                }, $annotatecode);
                 if (!isset($attrs['no_annotate'])) {
                     $otp_post_array["annotate"] = $annotatecode;
                 }
