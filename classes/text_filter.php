@@ -144,7 +144,7 @@ vdo.add({
 EOF;
             } else {
                 $uniq = 'u' . rand();
-                $url = "https://player.vdocipher.com/v2/?otp=$otp&playbackInfo=$playbackInfo";
+                $url = "https://player1.vdocipher.com/v2/?otp=$otp&playbackInfo=$playbackInfo";
                 $playerId = self::$playerTheme;
                 if (strlen($playerId) === 16) {
                     $url .= "&player=$playerId";
@@ -165,7 +165,7 @@ EOF;
                     $url .= "&litemode=true";
                 }
                 $output = <<<END
-<script src="https://player.vdocipher.com/v2/api.js"></script>
+<script src="https://player1.vdocipher.com/v2/api.js"></script>
 <iframe
   src="$url"
   id="$uniq"
